@@ -1,5 +1,5 @@
 ---
-title: "Block With Friction"
+title: "Block Without Friction"
 subtitle: Position Control with friction. Using Pole Placement + PD.
 ---
 

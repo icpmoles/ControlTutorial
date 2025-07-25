@@ -30,7 +30,17 @@ jobs:
       
       - name: Install Software Dependencies
         run: sudo apt-get install --no-install-recommends librsvg2-bin fontconfig qpdf
-        
+      
+      - name: Set up OpenModelica
+        uses: OpenModelica/setup-openmodelica@6410963bde4b20aa04f9cf2c2bf4005299346dcf
+        with:
+          version: '1.24.5'
+          packages: |
+            'omc'
+          libraries: |
+            'Modelica 4.0.0'
+            'Modelica 3.2.3+maint.om'
+      
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@9e48da27e184aa238fcb49f5db75469626d43adb
         env:

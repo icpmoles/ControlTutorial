@@ -157,22 +157,6 @@
   breaklines, breaknonspaceingroup, breakanywhere
 }
 \makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
-\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
-\definecolor{quarto-callout-color}{HTML}{909090}
-\definecolor{quarto-callout-note-color}{HTML}{0758E5}
-\definecolor{quarto-callout-important-color}{HTML}{CC1914}
-\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
-\definecolor{quarto-callout-tip-color}{HTML}{00A047}
-\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
-\definecolor{quarto-callout-color-frame}{HTML}{acacac}
-\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
-\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
-\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
-\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
-\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
-\makeatother
-\makeatletter
 \@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
 \makeatother
 \makeatletter
@@ -262,31 +246,66 @@ control, modeling, simulation, tutorial, FMU, openmodelica, julia, ControlSystem
 
 \chapter{Introduction}\label{introduction}
 
-\section{What is this?}\label{what-is-this}
+\section{Intro}\label{sec-home}
 
 This is a collection of write ups on how to solve the various problems
 presented by \href{https://janismac.github.io/ControlChallenges/}{Github
 user} ``Janismac''.
 
+\section{What do I need?}\label{what-do-i-need}
+
+\subsection{Software}\label{software}
+
+\begin{itemize}
+\item
+  A real OS like Linux or Windows. \footnote{MacOs should be supported
+    in theory but it's not tested.}
+\item
+  The \href{https://julialang.org/install/}{Julia Programming Language}
+
+  \begin{itemize}
+  \item
+    Clone the
+    \href{https://github.com/icpmoles/controlchallengessolutions}{repo}
+  \item
+    Activate the package by running in your terminal:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{let Kp = 337;}
-\NormalTok{let Kd = 64;}
-\NormalTok{function controlFunction(block)}
-\NormalTok{\{}
-\NormalTok{  return {-}( block.x * Kp + block.dx*Kd);}
-\NormalTok{\}}
+\ExtensionTok{julia} \AttributeTok{{-}{-}project} \AttributeTok{{-}e} \StringTok{\textquotesingle{}using Pkg; Pkg.instantiate()\textquotesingle{}}
 \end{Highlighting}
 \end{Shaded}
+  \end{itemize}
+\item
+  (Nice to have) \href{https://openmodelica.org/}{OpenModelica Editor}
+\end{itemize}
 
-\href{https://pages.icpmol.es/ControlChallenges/index.html?target=TutorialBlockWithFriction&code=bGV0IEtwID0gMzM3OwpsZXQgS2QgPSA2NDsKZnVuY3Rpb24gY29udHJvbEZ1bmN0aW9uKGJsb2NrKQp7CiAgcmV0dXJuIC0oIGJsb2NrLnggKiBLcCArIGJsb2NrLmR4KktkKTsKfQ==}{Open
-Simulation}
+\subsection{Theory}\label{theory}
 
-\begin{tcolorbox}[enhanced jigsaw, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, opacitybacktitle=0.6, rightrule=.15mm, bottomrule=.15mm, toprule=.15mm, breakable, colback=white, opacityback=0, coltitle=black, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip with Title}, arc=.35mm, left=2mm, colbacktitle=quarto-callout-tip-color!10!white]
+\begin{itemize}
+\item
+  Basic Julia knowledge
+\item
+  Basic JS knowledge
+\item
+  Control Theory knowledge
 
-This is an example of a callout with a title.
+  \begin{itemize}
+  \item
+    Frequency Based Control
+  \item
+    State Space Based control
+  \end{itemize}
+\item
+  Misc knowledge:
 
-\end{tcolorbox}
+  \begin{itemize}
+  \item
+    Linear Algebra
+  \item
+    Differential Equations
+  \end{itemize}
+\end{itemize}
 
 \part{Block on a Slope}
 
@@ -395,6 +414,12 @@ s \\ v \\ F
 \]
 
 Obviously the gravitational term acts as a disturbance.
+
+Converting it in transfer function form is not necessary.
+
+\[
+\alpha +
+\]
 
 \chapter{Block With Friction}\label{block-with-friction}
 

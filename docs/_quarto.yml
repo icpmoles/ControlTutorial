@@ -33,6 +33,7 @@ book:
       - content/block_on_slope/slope.qmd
   appendices:
     - content/appendix/performance.qmd
+    - content/block_on_slope/test.qmd
 
 format:
   html:
