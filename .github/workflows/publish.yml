@@ -34,7 +34,7 @@ jobs:
       - name: Set up OpenModelica
         uses: OpenModelica/setup-openmodelica@6410963bde4b20aa04f9cf2c2bf4005299346dcf
         with:
-          version: '1.25.1'
+          version: 'stable'
           packages: |
             'omc'
           libraries: |
