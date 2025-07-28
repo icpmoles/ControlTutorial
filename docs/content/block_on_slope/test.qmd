@@ -7,9 +7,14 @@ subtitle: Position Control with friction. Using Pole Placement + PD.
 
 ```{julia}
 using OMJulia
+```
+
+```{julia}
 using OMJulia.API: API
+```
+
+```{julia}
 omc = OMJulia.OMCSession();
-installDir = API.getInstallationDirectoryPath(omc)
 ```
 
 ```{julia}
@@ -18,28 +23,20 @@ modelfile = joinpath(@__DIR__,
   "ControlChallenges",
   "package.mo")
 API.loadFile(omc, modelfile)
-```
 
-
-```{julia}
 classname = "ControlChallenges.BlockOnSlope_Challenges.Examples.WithFriction"
 ModelicaSystem(omc,modelfile, classname)
-```
 
-```{julia}
 fmuPath = API.buildModelFMU(omc, classname)
 ```
 
 ```{julia}
 using FMI, DifferentialEquations, Plots
 
-```
-
-```{julia}
 fmu = loadFMU(fmuPath);
 simData = simulateME(
     fmu,
-    (0.0, 10.0);
+    (0.0, 5.0);
     recordValues=["blockOnSlope.x", 
     "blockOnSlope.xd", 
     "blockOnSlope.usat"],

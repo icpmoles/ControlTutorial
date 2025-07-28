@@ -119,7 +119,9 @@ execute:
   daemon: true
 
 
-engines: ['julia']
+
+engines: [julia]
+
 
 authors:
   - name: Iacopo Moles
