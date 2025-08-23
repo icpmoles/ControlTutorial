@@ -1242,6 +1242,75 @@ BenchmarkTools.Trial: 10000 samples with 992 evaluations per sample.
 We squeeze the last bit of performance and beat the initial benchmark,
 not by much but still appreciable.
 
+\chapter{Test OM.jl}\label{test-om.jl}
+
+Position Control with friction. Using Pole Placement + PD.
+
+\hfill\break
+
+\section{Response Analysis}\label{response-analysis-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# import Pkg; Pkg.add("OMJulia")}
+\ImportTok{using} \BuiltInTok{OMJulia}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{using} \BuiltInTok{OMJulia.API}\NormalTok{: API}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{omc }\OperatorTok{=}\NormalTok{ OMJulia.}\FunctionTok{OMCSession}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[ Info: Path to zmq file="/tmp/openmodelica.icpmoles.port.julia.z0WV3KM0Lj"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelfile }\OperatorTok{=} \FunctionTok{joinpath}\NormalTok{(}\PreprocessorTok{@\_\_DIR\_\_}\NormalTok{,}
+  \StringTok{"modelica"}\NormalTok{,}
+  \StringTok{"ControlChallenges"}\NormalTok{,}
+  \StringTok{"package.mo"}\NormalTok{)}
+\NormalTok{API.}\FunctionTok{loadFile}\NormalTok{(omc, modelfile)}
+
+\NormalTok{classname }\OperatorTok{=} \StringTok{"ControlChallenges.BlockOnSlope\_Challenges.Examples.WithFriction"}
+\FunctionTok{ModelicaSystem}\NormalTok{(omc,modelfile, classname)}
+
+\NormalTok{fmuPath }\OperatorTok{=}\NormalTok{ API.}\FunctionTok{buildModelFMU}\NormalTok{(omc, classname)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+"/tmp/jl_Bdmswi/ControlChallenges.BlockOnSlope_Challenges.Examples.WithFriction.fmu"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{using} \BuiltInTok{FMI}\NormalTok{, }\BuiltInTok{DifferentialEquations}\NormalTok{, }\BuiltInTok{Plots}
+
+\NormalTok{fmu }\OperatorTok{=} \FunctionTok{loadFMU}\NormalTok{(fmuPath);}
+\NormalTok{simData }\OperatorTok{=} \FunctionTok{simulateME}\NormalTok{(}
+\NormalTok{    fmu,}
+\NormalTok{    (}\FloatTok{0.0}\NormalTok{, }\FloatTok{5.0}\NormalTok{);}
+\NormalTok{    recordValues}\OperatorTok{=}\NormalTok{[}\StringTok{"blockOnSlope.x"}\NormalTok{, }
+    \StringTok{"blockOnSlope.xd"}\NormalTok{, }
+    \StringTok{"blockOnSlope.usat"}\NormalTok{],}
+\NormalTok{    showProgress}\OperatorTok{=}\ConstantTok{false}\NormalTok{);}
+\FunctionTok{unloadFMU}\NormalTok{(fmu);}
+\FunctionTok{plot}\NormalTok{(simData, states}\OperatorTok{=}\ConstantTok{false}\NormalTok{, timeEvents}\OperatorTok{=}\ConstantTok{false}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{index_files/mediabag/content/block_on_slope/test_files/figure-pdf/cell-6-output-1.pdf}}
+
 
 \backmatter
 

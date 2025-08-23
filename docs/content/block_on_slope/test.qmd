@@ -6,6 +6,7 @@ subtitle: Position Control with friction. Using Pole Placement + PD.
 ## Response Analysis
 
 ```{julia}
+# import Pkg; Pkg.add("OMJulia")
 using OMJulia
 ```
 

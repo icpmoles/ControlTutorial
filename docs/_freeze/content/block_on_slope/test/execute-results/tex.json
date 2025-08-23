@@ -1,0 +1,11 @@
+{
+  "hash": "d07c46cd4653599de7fef5be66cce484",
+  "result": {
+    "engine": "julia",
+    "markdown": "---\ntitle: \"Test OM.jl\"\nsubtitle: Position Control with friction. Using Pole Placement + PD.\n---\n\n## Response Analysis\n\n::: {.cell execution_count=1}\n``` {.julia .cell-code}\n# import Pkg; Pkg.add(\"OMJulia\")\nusing OMJulia\n```\n:::\n\n\n\n::: {.cell execution_count=1}\n``` {.julia .cell-code}\nusing OMJulia.API: API\n```\n:::\n\n\n\n::: {.cell execution_count=1}\n``` {.julia .cell-code}\nomc = OMJulia.OMCSession();\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[ Info: Path to zmq file=\"/tmp/openmodelica.icpmoles.port.julia.z0WV3KM0Lj\"\n```\n:::\n:::\n\n\n\n::: {.cell execution_count=1}\n``` {.julia .cell-code}\nmodelfile = joinpath(@__DIR__,\n  \"modelica\",\n  \"ControlChallenges\",\n  \"package.mo\")\nAPI.loadFile(omc, modelfile)\n\nclassname = \"ControlChallenges.BlockOnSlope_Challenges.Examples.WithFriction\"\nModelicaSystem(omc,modelfile, classname)\n\nfmuPath = API.buildModelFMU(omc, classname)\n```\n\n::: {.cell-output .cell-output-display execution_count=1}\n```\n\"/tmp/jl_Bdmswi/ControlChallenges.BlockOnSlope_Challenges.Examples.WithFriction.fmu\"\n```\n:::\n:::\n\n\n\n::: {.cell execution_count=1}\n``` {.julia .cell-code}\nusing FMI, DifferentialEquations, Plots\n\nfmu = loadFMU(fmuPath);\nsimData = simulateME(\n    fmu,\n    (0.0, 5.0);\n    recordValues=[\"blockOnSlope.x\", \n    \"blockOnSlope.xd\", \n    \"blockOnSlope.usat\"],\n    showProgress=false);\nunloadFMU(fmu);\nplot(simData, states=false, timeEvents=false)\n```\n\n::: {.cell-output .cell-output-display execution_count=1}\n![](test_files/figure-pdf/cell-6-output-1.svg){fig-pos='H'}\n:::\n:::\n\n\n\n",
+    "supporting": [
+      "test_files/figure-pdf"
+    ],
+    "filters": []
+  }
+}
