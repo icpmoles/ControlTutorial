@@ -1,4 +1,8 @@
 on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Manual trigger"
   push:
     branches:
       - main
