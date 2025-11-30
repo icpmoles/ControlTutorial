@@ -71,8 +71,8 @@ jobs:
         with:
           path: docs
       
-      - name: Linearize PDF
-        run: qpdf docs/_book/Control_Tutorial.pdf --linearize --replace-input
+    #  - name: Linearize PDF
+    #    run: qpdf docs/_book/Control_Tutorial.pdf --linearize --replace-input
 
       - name: Upload GHPages artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
